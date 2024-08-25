@@ -1,0 +1,22 @@
+apiVersion: apps/v1 # Use the newer apps/v1 API version for ReplicaSets
+kind: ReplicaSet
+metadata:
+  name: market-data
+spec:
+  replicas: 3
+  selector: # Define a selector to match pods managed by this ReplicaSet
+    matchLabels:
+      app: market-data
+  template:
+    metadata:
+      labels:
+        app: market-data
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: market-data
+          image: market-data:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000

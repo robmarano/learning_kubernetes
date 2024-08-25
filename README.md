@@ -1,0 +1,26 @@
+# README.md
+
+To run this Python app as a cluster of a minimum of 3 nodes,
+we create the replica set using the configuration file call `market-data-replica-set.yml`
+and run the following commands:
+```bash
+# Start Minikube
+minikube start
+
+# Build the container as defined in `Dockerfile`
+docker build -t market-data:lastest .
+
+# Check if your docker has built the image
+docker image ls
+
+# Load the image into minikube's image repository
+minikube image load market-data:latest
+
+# Bring up the replica set in K8s (minikube)
+kubectl apply -f ./market-data-replica-set.yml
+
+# Check if the pods are in the running state
+kubectl get pods
+
+
+```
