@@ -21,6 +21,20 @@ kubectl apply -f ./market-data-replica-set.yml
 
 # Check if the pods are in the running state
 kubectl get pods
+```
 
+Deploy the service as defined in `market-data-service.yml`
+```bash
+kubectl apply -f market-data-service.yml
+```
 
+Now you can access the service, which acts like a load balancer using the k8s `NodePort` spec type:
+```bash
+# Get the IP address
+SVC_IP=$(minikube ip)
+
+# Node port is from 'NodePort' variable in the market-data-service.yml file
+PORT=30623
+
+curl http://${SVC_IP}:${PORT}/ping
 ```
